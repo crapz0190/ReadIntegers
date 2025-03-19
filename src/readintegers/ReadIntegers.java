@@ -3,8 +3,7 @@ import java.util.Scanner;
 
 public class ReadIntegers {
     
-    public static void counterNumbers(){
-        Scanner input = new Scanner(System.in);
+    public static void counterNumbers(Scanner input){
         int number;
         int numberNeg = 0;
         int numberPos = 0;
@@ -28,8 +27,7 @@ public class ReadIntegers {
         System.out.printf("Cantidad de ceros: %d\n",numberZero);
     }
     
-    public static void majorMinor(){
-        Scanner input = new Scanner(System.in);
+    public static void majorMinor(Scanner input){
         System.out.print("Ingrese el número 1: ");
         int number = input.nextInt();
         int major = number;
@@ -51,48 +49,39 @@ public class ReadIntegers {
         
     }
     
-    public static void findSmallestNumber(){
-        Scanner input = new Scanner(System.in);
-        System.out.print("Ingrese la cantidad de valores a analizar: ");
-        int quantity = input.nextInt();
+    private static int findSmallestNumber(int number, int minor){        
+        if (minor < number)
+            return minor;
+        
+        return number;
+    }
+    
+    public static void showMessage(Scanner input){
         int number;
+        int quantity;
         int minor;
-        int counterNumber = 2;
         
-        while (quantity <= 0) {
-            System.err.println("La cantidad de números analizar debe ser positiva");
-            System.out.print("Ingrese la cantidad de valores a analizar: ");
+        System.out.println();
+        do {
+            System.out.print("Indique la cantidad de valores a analizar (por ejemplo, 5): ");
             quantity = input.nextInt();
-        }
+            if(quantity <= 0)
+                System.err.println("La cantidad de números analizar debe ser positiva");
+        } while (quantity <= 0);
         
+        System.out.println("\nIngrese los números solicitados, para determinar el menor: ");
         System.out.print("Ingrese el número 1: ");
         number = input.nextInt();
         minor = number;
         
-        while (quantity > 1) {
-            System.out.printf("Ingrese el número %d: ", counterNumber++);
+        for (int i = 2; i <= quantity; i++) {
+            System.out.printf("Ingrese el número %d: ", i); // inicia desde 2
             number = input.nextInt();
-            
-            if (number < minor)
-                minor = number;
-            
-            --quantity;
+            minor = findSmallestNumber(number, minor);                          
         }
-        
+      
         System.out.println("\n--------------- Exercise number 10 ---------------");
-        System.out.printf("El número más pequeño es: %d\n", minor);
-        
+        System.out.printf("El número más pequeño ingresado es: %d\n", minor); 
     }
 
-    public static void main(String[] args) {
-        //ReadIntegers.counterNumbers();
-        //System.out.println();
-        //ReadIntegers.majorMinor();
-        System.out.println();
-        ReadIntegers.findSmallestNumber();
-        
-        
-        System.out.println();
-    }
-    
 }
